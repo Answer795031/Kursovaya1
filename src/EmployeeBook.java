@@ -19,39 +19,64 @@ public class EmployeeBook {
         }
     }
 
-    public void deleteEmployeeByName(String name){
-        for (int i = 0; i < employeeList.length; i++){
+    public void deleteEmployee(){
+        System.out.println("Удалить сотрудника по:\n" +
+                "1 - Имени\n" +
+                "2 - ID");
+        System.out.print("Введите параметр: ");
+        int check = scanner.nextInt();
+        scanner.nextLine();
 
-            if (employeeList[i] == null){
-                continue;
-            }
+        switch (check){
+            case 1:
+                System.out.print("Введите имя: ");
+                String name = scanner.nextLine();
 
-            String checkName = employeeList[i].getName();
+                for (int i = 0; i < employeeList.length; i++){
 
-            if (checkName.equals(name)){
-                employeeList[i] = null;
+                    if (employeeList[i] == null){
+                        continue;
+                    }
+
+                    String checkName = employeeList[i].getName();
+
+                    if (checkName.equals(name)){
+                        employeeList[i] = null;
+                        break;
+                    }
+                }
+
                 break;
-            }
-        }
-    }
 
-    public void deleteEmployeeByID(int id){
-        for (int i = 0; i < employeeList.length; i++){
+            case 2:
+                System.out.print("Введите ID: ");
+                int id = scanner.nextInt();
 
-            if (employeeList[i] == null){
-                continue;
-            }
+                for (int i = 0; i < employeeList.length; i++){
 
-            if (employeeList[i].getID(i + 1) == id){
-                employeeList[i] = null;
+                    if (employeeList[i] == null){
+                        continue;
+                    }
+
+                    if (employeeList[i].getID(i + 1) == id){
+                        employeeList[i] = null;
+                        break;
+                    }
+                }
+
                 break;
-            }
+
+            default:
+                System.out.println("Ошибка! Введите корректный параметр!");
+                break;
         }
+
     }
 
     public void setEmployee(){
-        System.out.println("Введите имя сотрудника:");
+        System.out.print("Введите имя сотрудника: ");
         String name = scanner.nextLine();
+        scanner.nextLine();
 
         for (Employee i : employeeList){
 
@@ -62,13 +87,17 @@ public class EmployeeBook {
             String checkName = i.getName();
 
             if (checkName.equals(name)){
-                System.out.println("Введите параметр, который необходимо изменить:\n" +
-                        "1 - отдел;\n" +
-                        "2 - зарплата.");
+                System.out.println("Параметры, которые можно изменить:\n" +
+                        "1 - отдел\n" +
+                        "2 - зарплата");
 
-                switch (scanner.nextInt()){
+                System.out.print("Введите параметр: ");
+                int check = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (check){
                     case 1:
-                        System.out.println("Введите номер нового отдела:");
+                        System.out.print("Введите номер нового отдела: ");
                         int newDepartment = scanner.nextInt();
 
                         if (newDepartment < 1 || newDepartment > 5) {
@@ -80,7 +109,7 @@ public class EmployeeBook {
                         break;
 
                     case 2:
-                        System.out.println("Введите новую зарплату:");
+                        System.out.print("Введите новую зарплату: ");
                         int newSalary = scanner.nextInt();
                         i.setSalary(newSalary);
                         break;
