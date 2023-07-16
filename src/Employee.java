@@ -7,16 +7,16 @@ public class Employee{
     private int salary;             // зарплата
     private static int counter = 1; // счетчик для id
     private int id;                 // id сотрудника
-    private int totalSalary;
 
     public Employee(String name, int department, int salary){
         // конструктор
 
+        this.id = getID();
+
         this.name = name;
         this.department = department;
         this.salary = salary;
-        this.id = getID();
-        counter++;
+
 
     }
 
@@ -24,7 +24,7 @@ public class Employee{
     public String toString(){
         // переопределяем метод toString
 
-        return id + ". ФИО: " + getName() + ", Отдел: " + getDepartment() + ", Зарплата: " + getSalary() + " р.";
+        return this.id + ". ФИО: " + getName() + ", Отдел: " + getDepartment() + ", Зарплата: " + getSalary() + " р.";
     }
 
     @Override
@@ -32,13 +32,13 @@ public class Employee{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return department == employee.department && salary == employee.salary && id == employee.id
-                && totalSalary == employee.totalSalary && Objects.equals(name, employee.name);
+        return department == employee.department && salary == employee.salary
+                                                 && id == employee.id && Objects.equals(name, employee.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, department, salary, id, totalSalary);
+        return Objects.hash(name, department, salary, id);
     }
 
     public String getName(){
@@ -74,10 +74,13 @@ public class Employee{
     public int getID() {
         // геттер для id
 
-        this.id = counter;
-        return id;
+        this.id = Employee.counter;
+        Employee.counter++;
+
+        if (Employee.counter > 10){
+            Employee.counter = 1;
+        }
+
+        return this.id;
     }
-
-
-
 }

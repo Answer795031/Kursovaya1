@@ -1,14 +1,8 @@
 public class EmployeeBook {
 
     /*
-    Привести структуру проекта к ООП.
 
-    1. Создать класс EmployeeBook.
-    2. Перенести хранилище сотрудников в него (массив), закрыть к нему доступ извне (сделать приватным).
-    3. Все статические методы по работе с массивом перенести в этот класс и сделать нестатическими.
     4. Добавить несколько новых методов:
-        1. Добавить нового сотрудника (создаем объект, заполняем поля, кладем в массив).
-        Нужно найти свободную ячейку в массиве и добавить нового сотрудника в нее. Искать нужно всегда с начала, так как возможно добавление в ячейку удаленных ранее сотрудников.
         2. Удалить сотрудника (находим сотрудника по Ф. И. О. и/или id, обнуляем его ячейку вмассиве).
     5. Изменить сотрудника (получить сотрудника по Ф. И. О., модернизировать его запись):
         1. Изменить зарплату.
@@ -29,10 +23,19 @@ public class EmployeeBook {
         }
     }
 
-    public void deleteEmployee(String name, int id){
+    public void deleteEmployeeByName(String name){
         for (int i = 0; i < employeeList.length; i++){
             String checkName = employeeList[i].getName();
-            if (checkName.equals(name) || employeeList[i].getID() == id){
+            if (checkName.equals(name)){
+                employeeList[i] = null;
+                break;
+            }
+        }
+    }
+
+    public void deleteEmployeeByID(int id){
+        for (int i = 0; i < employeeList.length; i++){
+            if (employeeList[i].getID() == id){
                 employeeList[i] = null;
                 break;
             }
@@ -85,15 +88,19 @@ public class EmployeeBook {
         // при выполнении условия сравнения, записываем сотрудника в шаблон для вывода
 
         int lowestSalary = Integer.MAX_VALUE;
-        Employee employee = new Employee(null, 0, 0);
 
         for (Employee i : employeeList){
             if (lowestSalary > i.getSalary()){
                 lowestSalary = i.getSalary();
-                employee = i;
             }
         }
-        System.out.println("Работник с наименьшей зарплатой:\n" + employee + "\n");
+
+        for (int i = 0; i < employeeList.length; i++){
+            int checkSalary = employeeList[i].getSalary();
+            if (checkSalary == lowestSalary){
+                System.out.println("\nРаботник с наименьшей зарплатой:\n" + employeeList[i]);
+            }
+        }
     }
 
     public void findHighestSalary(){
@@ -102,15 +109,19 @@ public class EmployeeBook {
         // при выполнении условия сравнения, записываем сотрудника в шаблон для вывода
 
         int lowestSalary = Integer.MIN_VALUE;
-        Employee employee = new Employee(null, 0, 0);
 
         for (Employee i : employeeList){
             if (lowestSalary < i.getSalary()){
                 lowestSalary = i.getSalary();
-                employee = i;
             }
         }
-        System.out.println("Работник с наибольшей зарплатой:\n" + employee + "\n");
+
+        for (int i = 0; i < employeeList.length; i++){
+            int checkSalary = employeeList[i].getSalary();
+            if (checkSalary == lowestSalary){
+                System.out.println("\nРаботник с наибольшей зарплатой:\n" + employeeList[i]);
+            }
+        }
     }
 
     public void findAverageSalary(){
@@ -121,7 +132,7 @@ public class EmployeeBook {
         for (Employee i : employeeList){
             averageSalary += i.getSalary() / employeeList.length;
         }
-        System.out.println("Среднее значение зарплат: " + averageSalary + " р.\n");
+        System.out.println("\nСреднее значение зарплат: " + averageSalary + " р.\n");
     }
 
     public void getFIO() {
@@ -148,15 +159,19 @@ public class EmployeeBook {
         // при выполнении условия сравнения, записываем сотрудника в шаблон для вывода
 
         int lowestSalary = Integer.MAX_VALUE;
-        Employee employee = new Employee(null, 0, 0);
 
         for (Employee i : employeeList){
             if ((i.getDepartment() == department) && (lowestSalary > i.getSalary())){
                 lowestSalary = i.getSalary();
-                employee = i;
             }
         }
-        System.out.println("Работник с наименьшей зарплатой в отделе" + department + " :\n" + employee + "\n");
+
+        for (int i = 0; i < employeeList.length; i++){
+            int checkSalary = employeeList[i].getSalary();
+            if (checkSalary == lowestSalary){
+                System.out.println("\nРаботник с наименьшей зарплатой в отделе:\n" + employeeList[i]);
+            }
+        }
     }
 
     public void findHighestSalaryByDepartment(int department){
@@ -165,15 +180,19 @@ public class EmployeeBook {
         // при выполнении условия сравнения, записываем сотрудника в шаблон для вывода
 
         int lowestSalary = Integer.MIN_VALUE;
-        Employee employee = new Employee(null, 0, 0);
 
         for (Employee i : employeeList){
             if ((i.getDepartment() == department) && (lowestSalary < i.getSalary())){
                 lowestSalary = i.getSalary();
-                employee = i;
             }
         }
-        System.out.println("Работник с наибольшей зарплатой в отделе" + department + " :\n" + employee + "\n");
+
+        for (int i = 0; i < employeeList.length; i++){
+            int checkSalary = employeeList[i].getSalary();
+            if (checkSalary == lowestSalary){
+                System.out.println("\nРаботник с наибольшей зарплатой в отделе:\n" + employeeList[i]);
+            }
+        }
     }
 
     public void totalSalaryByDepartment(int department){
