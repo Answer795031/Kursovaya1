@@ -11,13 +11,11 @@ public class Employee{
     public Employee(String name, int department, int salary){
         // конструктор
 
-        this.id = getID();
+        this.id = getID(counter);
 
         this.name = name;
         this.department = department;
         this.salary = salary;
-
-
     }
 
     @Override
@@ -71,16 +69,17 @@ public class Employee{
         this.salary = salary;
     }
 
-    public int getID() {
+    public int getID(int counter) {
         // геттер для id
 
-        this.id = Employee.counter;
+        if (counter > 10){
+            counter = 1;
+        }
+        this.id = counter;
+
         Employee.counter++;
 
-        if (Employee.counter > 10){
-            Employee.counter = 1;
-        }
-
         return this.id;
+
     }
 }

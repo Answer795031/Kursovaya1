@@ -1,23 +1,19 @@
+import java.util.Scanner;
+
 public class EmployeeBook {
 
-    /*
-
-    4. Добавить несколько новых методов:
-        2. Удалить сотрудника (находим сотрудника по Ф. И. О. и/или id, обнуляем его ячейку вмассиве).
-    5. Изменить сотрудника (получить сотрудника по Ф. И. О., модернизировать его запись):
-        1. Изменить зарплату.
-        2. Изменить отдел.
-        Придумать архитектуру. Сделать или два метода, или один, но продумать его.
-    6. Получить Ф. И. О. всех сотрудников по отделам (напечатать список отделов и их сотрудников).
-     */
+    Scanner scanner = new Scanner(System.in);
 
     private final Employee[] employeeList = new Employee[10];
+
+
 
     public void addNewEmployee(String name, int department, int salary){
 
         for (int i = 0; i < employeeList.length; i++){
             if (employeeList[i] == null){
                 employeeList[i] = new Employee(name, department, salary);
+                employeeList[i].getID(i + 1);   // магия
                 break;
             }
         }
@@ -25,7 +21,13 @@ public class EmployeeBook {
 
     public void deleteEmployeeByName(String name){
         for (int i = 0; i < employeeList.length; i++){
+
+            if (employeeList[i] == null){
+                continue;
+            }
+
             String checkName = employeeList[i].getName();
+
             if (checkName.equals(name)){
                 employeeList[i] = null;
                 break;
@@ -35,28 +37,58 @@ public class EmployeeBook {
 
     public void deleteEmployeeByID(int id){
         for (int i = 0; i < employeeList.length; i++){
-            if (employeeList[i].getID() == id){
+
+            if (employeeList[i] == null){
+                continue;
+            }
+
+            if (employeeList[i].getID(i + 1) == id){
                 employeeList[i] = null;
                 break;
             }
         }
     }
 
-    public void setDepartment(String name, int newDepartment){
-        for (int i = 0; i < employeeList.length; i++){
-            String checkName = employeeList[i].getName();
-            if (checkName.equals(name)){
-                employeeList[i].setDepartment(newDepartment);
-                break;
-            }
-        }
-    }
+    public void setEmployee(){
+        System.out.println("Введите имя сотрудника:");
+        String name = scanner.nextLine();
 
-    public void setSalary(String name, int newSalary){
-        for (int i = 0; i < employeeList.length; i++){
-            String checkName = employeeList[i].getName();
+        for (Employee i : employeeList){
+
+            if (i == null){
+                continue;
+            }
+
+            String checkName = i.getName();
+
             if (checkName.equals(name)){
-                employeeList[i].setSalary(newSalary);
+                System.out.println("Введите параметр, который необходимо изменить:\n" +
+                        "1 - отдел;\n" +
+                        "2 - зарплата.");
+
+                switch (scanner.nextInt()){
+                    case 1:
+                        System.out.println("Введите номер нового отдела:");
+                        int newDepartment = scanner.nextInt();
+
+                        if (newDepartment < 1 || newDepartment > 5) {
+                            System.out.println("Такого отдела не существует");
+                            break;
+                        }
+
+                        i.setDepartment(newDepartment);
+                        break;
+
+                    case 2:
+                        System.out.println("Введите новую зарплату:");
+                        int newSalary = scanner.nextInt();
+                        i.setSalary(newSalary);
+                        break;
+
+                    default:
+                        System.out.println("Ошибка! Введен неверный параметр!");
+                        break;
+                }
                 break;
             }
         }
@@ -65,11 +97,73 @@ public class EmployeeBook {
     public void printEmployeeList(){
         // Метод для получения списка сотрудников со всеми данными (ID, имя, отдел, з/п)
 
-        System.out.println("Справочник сотрудников:\n");
+        System.out.println("Справочник сотрудников:");
         for (Employee i : employeeList) {
             System.out.println(i);
         }
         System.out.println();
+    }
+
+    public void printAllEmployeesByDepartment(){
+        System.out.println("\nОтдел 1:");
+
+        for(Employee i : employeeList){
+            if (i == null){
+                continue;
+            }
+
+            if (i.getDepartment() == 1){
+                System.out.println("ФИО: " + i.getName() + ", Зарплата: " + i.getSalary() + " р.");
+            }
+        }
+
+        System.out.println("\nОтдел 2:");
+
+        for(Employee i : employeeList){
+            if (i == null){
+                continue;
+            }
+
+            if (i.getDepartment() == 2){
+                System.out.println("ФИО: " + i.getName() + ", Зарплата: " + i.getSalary() + " р.");
+            }
+        }
+
+        System.out.println("\nОтдел 3:");
+
+        for(Employee i : employeeList){
+            if (i == null){
+                continue;
+            }
+
+            if (i.getDepartment() == 3){
+                System.out.println("ФИО: " + i.getName() + ", Зарплата: " + i.getSalary() + " р.");
+            }
+        }
+
+        System.out.println("\nОтдел 4:");
+
+        for(Employee i : employeeList){
+            if (i == null){
+                continue;
+            }
+
+            if (i.getDepartment() == 4){
+                System.out.println("ФИО: " + i.getName() + ", Зарплата: " + i.getSalary() + " р.");
+            }
+        }
+
+        System.out.println("\nОтдел 5:");
+
+        for(Employee i : employeeList){
+            if (i == null){
+                continue;
+            }
+
+            if (i.getDepartment() == 5){
+                System.out.println("ФИО: " + i.getName() + ", Зарплата: " + i.getSalary() + " р.");
+            }
+        }
     }
 
     public void totalSalary(){
@@ -95,10 +189,10 @@ public class EmployeeBook {
             }
         }
 
-        for (int i = 0; i < employeeList.length; i++){
-            int checkSalary = employeeList[i].getSalary();
+        for (Employee i : employeeList){
+            int checkSalary = i.getSalary();
             if (checkSalary == lowestSalary){
-                System.out.println("\nРаботник с наименьшей зарплатой:\n" + employeeList[i]);
+                System.out.println("\nРаботник с наименьшей зарплатой:\n" + i);
             }
         }
     }
@@ -116,10 +210,10 @@ public class EmployeeBook {
             }
         }
 
-        for (int i = 0; i < employeeList.length; i++){
-            int checkSalary = employeeList[i].getSalary();
+        for (Employee i : employeeList){
+            int checkSalary = i.getSalary();
             if (checkSalary == lowestSalary){
-                System.out.println("\nРаботник с наибольшей зарплатой:\n" + employeeList[i]);
+                System.out.println("\nРаботник с наибольшей зарплатой:\n" + i);
             }
         }
     }
@@ -166,10 +260,10 @@ public class EmployeeBook {
             }
         }
 
-        for (int i = 0; i < employeeList.length; i++){
-            int checkSalary = employeeList[i].getSalary();
+        for (Employee i : employeeList){
+            int checkSalary = i.getSalary();
             if (checkSalary == lowestSalary){
-                System.out.println("\nРаботник с наименьшей зарплатой в отделе:\n" + employeeList[i]);
+                System.out.println("\nРаботник с наименьшей зарплатой в отделе:\n" + i);
             }
         }
     }
@@ -187,10 +281,10 @@ public class EmployeeBook {
             }
         }
 
-        for (int i = 0; i < employeeList.length; i++){
-            int checkSalary = employeeList[i].getSalary();
+        for (Employee i : employeeList){
+            int checkSalary = i.getSalary();
             if (checkSalary == lowestSalary){
-                System.out.println("\nРаботник с наибольшей зарплатой в отделе:\n" + employeeList[i]);
+                System.out.println("\nРаботник с наибольшей зарплатой в отделе:\n" + i);
             }
         }
     }
@@ -240,13 +334,13 @@ public class EmployeeBook {
         System.out.println();
     }
 
-    public void getEmployeesByDepartment(int department) {
+    public void printEmployeesByDepartment(int department) {
         // вывод сотрудников внутри отдела
 
         System.out.println("Список всех сотрудников отдела " + department + ":");
         for (Employee i : employeeList){
             if (i.getDepartment() == department) {
-                System.out.println("ФИО: " + i.getName() + ", Зарплата: " + i.getSalary());
+                System.out.println("ФИО: " + i.getName() + ", Зарплата: " + i.getSalary() + " р.");
             }
         }
     }
