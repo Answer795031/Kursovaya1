@@ -5,9 +5,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // EmployeeBook empBook = new EmployeeBook();
+        System.out.println("\nДобро пожаловать в систему учета персонала!\n");
 
-        action();
+        action(); // вызов меню
 
     }
 
@@ -28,8 +28,7 @@ public class Main {
         empBook.addNewEmployee("Костин Антон Олегович", 1, 69000);
         empBook.addNewEmployee("Иванов Иван Иванович", 5, 43000);
 
-        String name;
-        int department, salary, id, check;
+        int department, salary, choice;
         double percent;
 
         do {
@@ -56,7 +55,18 @@ public class Main {
                     "19 - Выход");
 
             System.out.print("Введите действие: ");
-            switch (scanner.nextInt()) {
+
+            // проверка на соответствие введенного числа типу int
+            if (!scanner.hasNextInt()){
+                System.out.println("Ошибка! Введите число");
+                continueProgram();
+                action();   // рекурсия
+            }
+
+            choice = Integer.parseInt(scanner.next());
+            scanner.nextLine();
+
+            switch (choice) {
                 case 1:
                     empBook.printEmployeeList();
                     continueProgram();
@@ -64,6 +74,13 @@ public class Main {
 
                 case 2:
                     System.out.print("Введите номер отдела: ");
+
+                    while (!scanner.hasNextInt()){
+                        System.out.println("Ошибка! Введите число");
+                        System.out.print("Введите номер отдела: ");
+                        scanner.next();
+                    }
+
                     department = scanner.nextInt();
                     empBook.printEmployeesByDepartment(department);
                     continueProgram();
@@ -77,14 +94,40 @@ public class Main {
                 case 4:
                     System.out.println("\nВведите данные сотрудника: ");
                     System.out.print("Введите ФИО: ");
-                    scanner.nextLine();
+
+                    while (scanner.hasNextInt()){
+                        System.out.println("Ошибка! ФИО не должно содержать цифр!");
+                        System.out.print("Введите ФИО: ");
+                        scanner.next();
+                    }
+
                     String employeeName = scanner.nextLine();
 
-                    System.out.print("\nВведите отдел: ");
+                    System.out.print("\nВведите номер отдела: ");
+
+                    while (!scanner.hasNextInt()){
+                        System.out.println("Ошибка! Введите число");
+                        System.out.print("Введите номер отдела: ");
+                        scanner.next();
+                    }
+
                     department = scanner.nextInt();
                     scanner.nextLine();
 
+                    if (department < 1 || department > 5) {
+                        System.out.println("Такого отдела не существует!");
+                        continueProgram();
+                        break;
+                    }
+
                     System.out.print("\nВведите зарплату: ");
+
+                    while (!scanner.hasNextInt()){
+                        System.out.println("Ошибка! Введите число");
+                        System.out.print("Введите зарплату: ");
+                        scanner.next();
+                    }
+
                     salary = scanner.nextInt();
                     scanner.nextLine();
 
@@ -113,14 +156,28 @@ public class Main {
                     break;
 
                 case 9:
-                    System.out.print("Введите отдел: ");
+                    System.out.print("Введите номер отдела: ");
+
+                    while (!scanner.hasNextInt()){
+                        System.out.println("Ошибка! Введите число");
+                        System.out.print("Введите номер отдела: ");
+                        scanner.next();
+                    }
+
                     department = scanner.nextInt();
                     empBook.findLowestSalaryByDepartment(department);
                     continueProgram();
                     break;
 
                 case 10:
-                    System.out.print("Введите отдел: ");
+                    System.out.print("Введите номер отдела: ");
+
+                    while (!scanner.hasNextInt()){
+                        System.out.println("Ошибка! Введите число");
+                        System.out.print("Введите номер отдела: ");
+                        scanner.next();
+                    }
+
                     department = scanner.nextInt();
                     empBook.findHighestSalaryByDepartment(department);
                     continueProgram();
@@ -128,6 +185,13 @@ public class Main {
 
                 case 11:
                     System.out.print("Введите сумму: ");
+
+                    while (!scanner.hasNextInt()){
+                        System.out.println("Ошибка! Введите число");
+                        System.out.print("Введите сумму: ");
+                        scanner.next();
+                    }
+
                     salary = scanner.nextInt();
                     empBook.findSalaryLessThenValue(salary);
                     continueProgram();
@@ -135,6 +199,13 @@ public class Main {
 
                 case 12:
                     System.out.print("Введите сумму: ");
+
+                    while (!scanner.hasNextInt()){
+                        System.out.println("Ошибка! Введите число");
+                        System.out.print("Введите сумму: ");
+                        scanner.next();
+                    }
+
                     salary = scanner.nextInt();
                     empBook.findSalaryMoreThenValue(salary);
                     continueProgram();
@@ -146,7 +217,14 @@ public class Main {
                     break;
 
                 case 14:
-                    System.out.print("Введите отдел: ");
+                    System.out.print("Введите номер отдела: ");
+
+                    while (!scanner.hasNextInt()){
+                        System.out.println("Ошибка! Введите число");
+                        System.out.print("Введите номер отдела: ");
+                        scanner.next();
+                    }
+
                     department = scanner.nextInt();
                     empBook.findAverageSalaryByDepartment(department);
                     continueProgram();
@@ -158,7 +236,14 @@ public class Main {
                     break;
 
                 case 16:
-                    System.out.print("Введите отдел: ");
+                    System.out.print("Введите номер отдела: ");
+
+                    while (!scanner.hasNextInt()){
+                        System.out.println("Ошибка! Введите число");
+                        System.out.print("Введите номер отдела: ");
+                        scanner.next();
+                    }
+
                     department = scanner.nextInt();
                     empBook.totalSalaryByDepartment(department);
                     continueProgram();
@@ -166,15 +251,36 @@ public class Main {
 
                 case 17:
                     System.out.print("Введите процент индексации: ");
+
+                    while (!scanner.hasNextDouble()){
+                        System.out.println("Ошибка! Введите число");
+                        System.out.print("Введите процент индексации: ");
+                        scanner.next();
+                    }
+
                     percent = scanner.nextDouble();
                     empBook.salaryIncreaseByPercent(percent);
                     continueProgram();
                     break;
 
                 case 18:
-                    System.out.print("Введите отдел: ");
+                    System.out.print("Введите номер отдела: ");
+
+                    while (!scanner.hasNextInt()){
+                        System.out.println("Ошибка! Введите число");
+                        System.out.print("Введите номер отдела: ");
+                        scanner.next();
+                    }
+
                     department = scanner.nextInt();
                     System.out.print("Введите процент индексации: ");
+
+                    while (!scanner.hasNextDouble()){
+                        System.out.println("Ошибка! Введите число");
+                        System.out.print("Введите процент индексации: ");
+                        scanner.next();
+                    }
+
                     percent = scanner.nextDouble();
                     empBook.salaryIncreaseByPercentByDepartment(department, percent);
                     continueProgram();
@@ -214,4 +320,7 @@ public class Main {
         }
     }
 
+    public static void checkPoint(){
+        System.out.println("Введите параметр:\n");
+    }
 }

@@ -24,12 +24,26 @@ public class EmployeeBook {
                 "1 - Имени\n" +
                 "2 - ID");
         System.out.print("Введите параметр: ");
+
+        while (!scanner.hasNextInt()){
+            System.out.println("Ошибка! Введите число");
+            System.out.print("Введите параметр: ");
+            scanner.next();
+        }
+
         int check = scanner.nextInt();
         scanner.nextLine();
 
         switch (check){
             case 1:
-                System.out.print("Введите имя: ");
+                System.out.print("Введите ФИО: ");
+
+                while (scanner.hasNextInt()){
+                    System.out.println("Ошибка! ФИО не должно содержать цифр!");
+                    System.out.print("Введите ФИО: ");
+                    scanner.next();
+                }
+
                 String name = scanner.nextLine();
 
                 for (int i = 0; i < employeeList.length; i++){
@@ -50,6 +64,13 @@ public class EmployeeBook {
 
             case 2:
                 System.out.print("Введите ID: ");
+
+                while (!scanner.hasNextInt()){
+                    System.out.println("Ошибка! Введите число");
+                    System.out.print("Введите ID: ");
+                    scanner.next();
+                }
+
                 int id = scanner.nextInt();
 
                 for (int i = 0; i < employeeList.length; i++){
@@ -74,9 +95,16 @@ public class EmployeeBook {
     }
 
     public void setEmployee(){
-        System.out.print("Введите имя сотрудника: ");
-        String name = scanner.nextLine();
         scanner.nextLine();
+        System.out.print("Введите ФИО: ");
+
+        while (scanner.hasNextInt()){
+            System.out.println("Ошибка! ФИО не должно содержать цифр");
+            System.out.print("Введите ФИО: ");
+            scanner.next();
+        }
+
+        String name = scanner.nextLine();
 
         for (Employee i : employeeList){
 
@@ -92,12 +120,26 @@ public class EmployeeBook {
                         "2 - зарплата");
 
                 System.out.print("Введите параметр: ");
+
+                while (!scanner.hasNextInt()){
+                    System.out.println("Ошибка! Введите число");
+                    System.out.print("Введите параметр: ");
+                    scanner.next();
+                }
+
                 int check = scanner.nextInt();
                 scanner.nextLine();
 
                 switch (check){
                     case 1:
                         System.out.print("Введите номер нового отдела: ");
+
+                        while (!scanner.hasNextInt()){
+                            System.out.println("Ошибка! Введите число");
+                            System.out.print("Введите номер нового отдела: ");
+                            scanner.next();
+                        }
+
                         int newDepartment = scanner.nextInt();
 
                         if (newDepartment < 1 || newDepartment > 5) {
@@ -110,6 +152,13 @@ public class EmployeeBook {
 
                     case 2:
                         System.out.print("Введите новую зарплату: ");
+
+                        while (!scanner.hasNextInt()){
+                            System.out.println("Ошибка! Введите число");
+                            System.out.print("Введите новую зарплату: ");
+                            scanner.next();
+                        }
+
                         int newSalary = scanner.nextInt();
                         i.setSalary(newSalary);
                         break;
@@ -126,7 +175,7 @@ public class EmployeeBook {
     public void printEmployeeList(){
         // Метод для получения списка сотрудников со всеми данными (ID, имя, отдел, з/п)
 
-        System.out.println("Справочник сотрудников:");
+        System.out.println("\nСправочник сотрудников:");
         for (Employee i : employeeList) {
             System.out.println(i);
         }
@@ -259,7 +308,7 @@ public class EmployeeBook {
     }
 
     public void getFIO() {
-        // вывод ФИО всех сотрудников
+        // вывод ФИО всех сотрудников. Не включен в быстрый доступ через меню за ненадобностью
 
         System.out.println("Список ФИО всех сотрудников:\n");
         for (Employee i : employeeList){
@@ -395,4 +444,5 @@ public class EmployeeBook {
             }
         }
     }
+
 }
