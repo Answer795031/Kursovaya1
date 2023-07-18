@@ -41,7 +41,7 @@ public class EmployeeBook {
         check = checkDepartment(department);
         switch (check){
             case 0:
-                break;
+                addNewEmployee(); // рекурсия
             case 1:
         }
 
@@ -60,7 +60,7 @@ public class EmployeeBook {
         check = checkSalary(salary);
         switch (check){
             case 0:
-                break;
+                addNewEmployee(); // рекурсия
             case 1:
         }
 
@@ -228,9 +228,11 @@ public class EmployeeBook {
                         int newDepartment = scanner.nextInt();
 
                         // Проверка на соответствие существующим отделам { 1 - 5 }
-                        if (newDepartment < 1 || newDepartment > 5) {
-                            System.out.println("Такого отдела не существует");
-                            break;
+                        check = checkDepartment(department);
+                        switch (check){
+                            case 0:
+                                setEmployee(); // рекурсия
+                            case 1:
                         }
 
                         i.setDepartment(newDepartment);
@@ -425,7 +427,7 @@ public class EmployeeBook {
         check = checkPercent(percent);
         switch (check){
             case 0:
-                break;
+                salaryIncreaseByPercent(); // рекурсия
             case 1:
         }
 
@@ -454,7 +456,7 @@ public class EmployeeBook {
         check = checkDepartment(department);
         switch (check){
             case 0:
-                break;
+                findLowestSalaryByDepartment(); // рекурсия
             case 1:
         }
 
@@ -494,7 +496,7 @@ public class EmployeeBook {
         check = checkDepartment(department);
         switch (check){
             case 0:
-                break;
+                findHighestSalaryByDepartment(); // рекурсия
             case 1:
         }
 
@@ -532,7 +534,7 @@ public class EmployeeBook {
         check = checkDepartment(department);
         switch (check){
             case 0:
-                break;
+                totalSalaryByDepartment(); // рекурсия
             case 1:
         }
 
@@ -563,7 +565,7 @@ public class EmployeeBook {
         check = checkDepartment(department);
         switch (check){
             case 0:
-                break;
+                findAverageSalaryByDepartment(); // рекурсия
             case 1:
         }
 
@@ -605,7 +607,7 @@ public class EmployeeBook {
         check = checkDepartment(department);
         switch (check){
             case 0:
-                break;
+                salaryIncreaseByPercentByDepartment(); // рекурсия
             case 1:
         }
 
@@ -623,7 +625,7 @@ public class EmployeeBook {
         check = checkPercent(percent);
         switch (check){
             case 0:
-                break;
+                salaryIncreaseByPercentByDepartment(); // рекурсия
             case 1:
         }
 
@@ -653,7 +655,7 @@ public class EmployeeBook {
         check = checkDepartment(department);
         switch (check){
             case 0:
-                break;
+                printEmployeesByDepartment(); // рекурсия
             case 1:
         }
 
@@ -683,7 +685,7 @@ public class EmployeeBook {
         check = checkSalary(salary);
         switch (check){
             case 0:
-                break;
+                findSalaryLessThenValue(); // рекурсия
             case 1:
         }
 
@@ -713,7 +715,7 @@ public class EmployeeBook {
         check = checkSalary(salary);
         switch (check){
             case 0:
-                break;
+                findSalaryMoreThenValue(); // рекурсия
             case 1:
         }
 
