@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class Employee{
+public class Employee {
 
     private final String name;      // имя (неизменяемое поле)
     private int department;         // отдел
@@ -8,7 +8,7 @@ public class Employee{
     private static int counter = 1; // счетчик для id
     private int id;                 // id сотрудника
 
-    public Employee(String name, int department, int salary){
+    public Employee(String name, int department, int salary) {
         // конструктор
 
         this.id = getID(counter);
@@ -19,7 +19,7 @@ public class Employee{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         // переопределяем метод toString
 
         return this.id + ". ФИО: " + getName() + ", Отдел: " + getDepartment() + ", Зарплата: " + getSalary() + " р.";
@@ -31,7 +31,7 @@ public class Employee{
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
         return department == employee.department && salary == employee.salary
-                                                 && id == employee.id && Objects.equals(name, employee.name);
+                && id == employee.id && Objects.equals(name, employee.name);
     }
 
     @Override
@@ -39,31 +39,31 @@ public class Employee{
         return Objects.hash(name, department, salary, id);
     }
 
-    public String getName(){
+    public String getName() {
         //геттер для имени
 
         return this.name;
     }
 
-    public int getDepartment(){
+    public int getDepartment() {
         // геттер для отдела
 
         return this.department;
     }
 
-    public void setDepartment(int department){
+    public void setDepartment(int department) {
         // сеттер для отдела
 
         this.department = department;
     }
 
-    public int getSalary(){
+    public int getSalary() {
         // геттер для зарплаты
 
         return this.salary;
     }
 
-    public void setSalary(int salary){
+    public void setSalary(int salary) {
         // сеттер для зарплаты
 
         this.salary = salary;
@@ -72,7 +72,7 @@ public class Employee{
     public int getID(int counter) {
         // геттер для id
 
-        if (counter > 10){
+        if (counter > 10) {
             counter = 1;
         }
         this.id = counter;

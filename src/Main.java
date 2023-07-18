@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-    static boolean isCorrect;
+    static boolean isExit;
 
     public static void main(String[] args) {
 
@@ -13,51 +13,44 @@ public class Main {
 
 
     public static void action() {
+        /*
+        Метод описывает меню программы для удобного вызова методов из EmployeeBook
+        Завернуто в цикл do-while, условием завершения является метод exitProgram, который можно вызвать по желанию.
+        */
 
         Scanner scanner = new Scanner(System.in);
-        EmployeeBook empBook = new EmployeeBook();
+        EmployeeBook empBook = new EmployeeBook(); // создаем экземпляр класса EmployeeBook
 
-        empBook.addNewEmployee("Шумской Анатолий Викторович", 3, 25500);
-        empBook.addNewEmployee("Петров Вадим Анатольевич", 2, 28200);
-        empBook.addNewEmployee("Еремеев Егор Витальевич", 3, 70900);
-        empBook.addNewEmployee("Федоров Игорь Павлович", 4, 56000);
-        empBook.addNewEmployee("Трофимова Евгения Юрьевна", 1, 33800);
-        empBook.addNewEmployee("Телецкая Ирина Алексеевна", 5, 24100);
-        empBook.addNewEmployee("Котов Виктор Львович", 4, 47500);
-        empBook.addNewEmployee("Шарова Ангелина Сергеевна", 2, 23000);
-        empBook.addNewEmployee("Костин Антон Олегович", 1, 69000);
-        empBook.addNewEmployee("Иванов Иван Иванович", 5, 43000);
-
-        int department, salary, choice;
-        double percent;
+        int choice;
 
         do {
 
             System.out.println("Доступные действия:\n" +
-                    "1 - Вывести список сотрудников\n" +
-                    "2 - Вывести список сотрудников (отдел)\n" +
-                    "3 - Вывести список сотрудников (все отделы)\n" +
-                    "4 - Добавить нового сотрудника\n" +
-                    "5 - Удалить сотрудника\n" +
-                    "6 - Изменить данные сотрудника в списке\n" +
-                    "7 - Найти сотрудника с минимальной з/п\n" +
-                    "8 - Найти сотрудника с максимальной з/п\n" +
-                    "9 - Найти сотрудника с минимальной з/п (отдел)\n" +
-                    "10 - Найти сотрудника с максимальной з/п (отдел)\n" +
-                    "11 - Найти сотрудников с з/п меньше указанной\n" +
-                    "12 - Найти сотрудников с з/п больше указанной\n" +
-                    "13 - Найти среднюю з/п по всем сотрудникам\n" +
-                    "14 - Найти среднюю з/п по всем сотрудникам (отдел)\n" +
-                    "15 - Получить сумму з/п всех сотрудников\n" +
-                    "16 - Получить сумму з/п всех сотрудников (отдел)\n" +
-                    "17 - Проиндексировать з/п всех сотрудников в %\n" +
-                    "18 - Проиндексировать з/п всех сотрудников в % (отдел)\n" +
+                    "1 - Вывести список сотрудников\n" +                            // printEmployeeList()
+                    "2 - Вывести список сотрудников (отдел)\n" +                    // printEmployeesByDepartment()
+                    "3 - Вывести список сотрудников (все отделы)\n" +               // printAllEmployeesByDepartment()
+                    "4 - Добавить нового сотрудника\n" +                            // addNewEmployee()
+                    "5 - Удалить сотрудника\n" +                                    // deleteEmployee()
+                    "6 - Изменить данные сотрудника в списке\n" +                   // empBook.setEmployee()
+                    "7 - Найти сотрудника с минимальной з/п\n" +                    // findLowestSalary()
+                    "8 - Найти сотрудника с максимальной з/п\n" +                   // findHighestSalary()
+                    "9 - Найти сотрудника с минимальной з/п (отдел)\n" +            // findLowestSalaryByDepartment()
+                    "10 - Найти сотрудника с максимальной з/п (отдел)\n" +          // findHighestSalaryByDepartment()
+                    "11 - Найти сотрудников с з/п меньше указанной\n" +             // findSalaryLessThenValue()
+                    "12 - Найти сотрудников с з/п больше указанной\n" +             // findSalaryMoreThenValue()
+                    "13 - Найти среднюю з/п по всем сотрудникам\n" +                // findAverageSalary()
+                    "14 - Найти среднюю з/п по всем сотрудникам (отдел)\n" +        // findAverageSalaryByDepartment()
+                    "15 - Получить сумму з/п всех сотрудников\n" +                  // totalSalary()
+                    "16 - Получить сумму з/п всех сотрудников (отдел)\n" +          // totalSalaryByDepartment()
+                    "17 - Проиндексировать з/п всех сотрудников в %\n" +            // salaryIncreaseByPercent()
+                    "18 - Проиндексировать з/п всех сотрудников в % (отдел)\n" +    // salaryIncreaseByPercentByDepartment()
                     "19 - Выход");
 
             System.out.print("Введите действие: ");
 
             // проверка на соответствие введенного числа типу int
-            if (!scanner.hasNextInt()){
+            // в случае несоответствия, просит ввести число повторно, не краша программу
+            if (!scanner.hasNextInt()) {
                 System.out.println("Ошибка! Введите число");
                 continueProgram();
                 action();   // рекурсия
@@ -66,261 +59,172 @@ public class Main {
             choice = Integer.parseInt(scanner.next());
             scanner.nextLine();
 
+            // меню реализовано через switch-case. Последним номером выход из проги
             switch (choice) {
                 case 1:
+                    // Вывести список сотрудников
+
                     empBook.printEmployeeList();
                     continueProgram();
                     break;
 
                 case 2:
-                    System.out.print("Введите номер отдела: ");
+                    // Вывести список сотрудников в отделе
 
-                    while (!scanner.hasNextInt()){
-                        System.out.println("Ошибка! Введите число");
-                        System.out.print("Введите номер отдела: ");
-                        scanner.next();
-                    }
-
-                    department = scanner.nextInt();
-                    empBook.printEmployeesByDepartment(department);
+                    empBook.printEmployeesByDepartment();
                     continueProgram();
                     break;
 
                 case 3:
+                    // Вывести список сотрудников во всех отделах
+
                     empBook.printAllEmployeesByDepartment();
                     continueProgram();
                     break;
 
                 case 4:
-                    System.out.println("\nВведите данные сотрудника: ");
-                    System.out.print("Введите ФИО: ");
+                    // Добавить нового сотрудника
 
-                    while (scanner.hasNextInt()){
-                        System.out.println("Ошибка! ФИО не должно содержать цифр!");
-                        System.out.print("Введите ФИО: ");
-                        scanner.next();
-                    }
-
-                    String employeeName = scanner.nextLine();
-
-                    System.out.print("\nВведите номер отдела: ");
-
-                    while (!scanner.hasNextInt()){
-                        System.out.println("Ошибка! Введите число");
-                        System.out.print("Введите номер отдела: ");
-                        scanner.next();
-                    }
-
-                    department = scanner.nextInt();
-                    scanner.nextLine();
-
-                    if (department < 1 || department > 5) {
-                        System.out.println("Такого отдела не существует!");
-                        continueProgram();
-                        break;
-                    }
-
-                    System.out.print("\nВведите зарплату: ");
-
-                    while (!scanner.hasNextInt()){
-                        System.out.println("Ошибка! Введите число");
-                        System.out.print("Введите зарплату: ");
-                        scanner.next();
-                    }
-
-                    salary = scanner.nextInt();
-                    scanner.nextLine();
-
-                    empBook.addNewEmployee(employeeName, department, salary);
+                    empBook.addNewEmployee();
                     continueProgram();
                     break;
 
                 case 5:
+                    // Удалить сотрудника - в методе есть выбор: удалить по ФИО или по ID
+
                     empBook.deleteEmployee();
                     continueProgram();
                     break;
 
                 case 6:
+                    // Изменить существующую запись сотрудника (отдел / зарплата)
+
                     empBook.setEmployee();
                     continueProgram();
                     break;
 
                 case 7:
+                    // Найти сотрудника с минимальной зарплатой
+
                     empBook.findLowestSalary();
                     continueProgram();
                     break;
 
                 case 8:
+                    // Найти сотрудника с максимальной зарплатой
+
                     empBook.findHighestSalary();
                     continueProgram();
                     break;
 
                 case 9:
-                    System.out.print("Введите номер отдела: ");
+                    // Найти сотрудника с минимальной зарплатой в отделе
 
-                    while (!scanner.hasNextInt()){
-                        System.out.println("Ошибка! Введите число");
-                        System.out.print("Введите номер отдела: ");
-                        scanner.next();
-                    }
-
-                    department = scanner.nextInt();
-                    empBook.findLowestSalaryByDepartment(department);
+                    empBook.findLowestSalaryByDepartment();
                     continueProgram();
                     break;
 
                 case 10:
-                    System.out.print("Введите номер отдела: ");
+                    // Найти сотрудника с максимальной зарплатой в отделе
 
-                    while (!scanner.hasNextInt()){
-                        System.out.println("Ошибка! Введите число");
-                        System.out.print("Введите номер отдела: ");
-                        scanner.next();
-                    }
-
-                    department = scanner.nextInt();
-                    empBook.findHighestSalaryByDepartment(department);
+                    empBook.findHighestSalaryByDepartment();
                     continueProgram();
                     break;
 
                 case 11:
-                    System.out.print("Введите сумму: ");
+                    // Найти всех сотрудников с зарплатой меньше указанного значения
 
-                    while (!scanner.hasNextInt()){
-                        System.out.println("Ошибка! Введите число");
-                        System.out.print("Введите сумму: ");
-                        scanner.next();
-                    }
-
-                    salary = scanner.nextInt();
-                    empBook.findSalaryLessThenValue(salary);
+                    empBook.findSalaryLessThenValue();
                     continueProgram();
                     break;
 
                 case 12:
-                    System.out.print("Введите сумму: ");
+                    // Найти всех сотрудников с зарплатой больше указанного значения
 
-                    while (!scanner.hasNextInt()){
-                        System.out.println("Ошибка! Введите число");
-                        System.out.print("Введите сумму: ");
-                        scanner.next();
-                    }
-
-                    salary = scanner.nextInt();
-                    empBook.findSalaryMoreThenValue(salary);
+                    empBook.findSalaryMoreThenValue();
                     continueProgram();
                     break;
 
                 case 13:
+                    // Найти средний размер зарплаты среди всех сотрудников
+
                     empBook.findAverageSalary();
                     continueProgram();
                     break;
 
                 case 14:
-                    System.out.print("Введите номер отдела: ");
+                    // Найти средний размер зарплаты среди всех сотрудников в отделе
 
-                    while (!scanner.hasNextInt()){
-                        System.out.println("Ошибка! Введите число");
-                        System.out.print("Введите номер отдела: ");
-                        scanner.next();
-                    }
-
-                    department = scanner.nextInt();
-                    empBook.findAverageSalaryByDepartment(department);
+                    empBook.findAverageSalaryByDepartment();
                     continueProgram();
                     break;
 
                 case 15:
+                    // Найти сумму затрат на зарплаты сотрудникам
+
                     empBook.totalSalary();
                     continueProgram();
                     break;
 
                 case 16:
-                    System.out.print("Введите номер отдела: ");
+                    // Найти сумму затрат на зарплаты сотрудникам в отделе
 
-                    while (!scanner.hasNextInt()){
-                        System.out.println("Ошибка! Введите число");
-                        System.out.print("Введите номер отдела: ");
-                        scanner.next();
-                    }
-
-                    department = scanner.nextInt();
-                    empBook.totalSalaryByDepartment(department);
+                    empBook.totalSalaryByDepartment();
                     continueProgram();
                     break;
 
                 case 17:
-                    System.out.print("Введите процент индексации: ");
+                    // Проиндексировать зарплаты всех сотрудников на указанный процент
 
-                    while (!scanner.hasNextDouble()){
-                        System.out.println("Ошибка! Введите число");
-                        System.out.print("Введите процент индексации: ");
-                        scanner.next();
-                    }
-
-                    percent = scanner.nextDouble();
-                    empBook.salaryIncreaseByPercent(percent);
+                    empBook.salaryIncreaseByPercent();
                     continueProgram();
                     break;
 
                 case 18:
-                    System.out.print("Введите номер отдела: ");
+                    // Проиндексировать зарплаты всех сотрудников в отделе на указанный процент
 
-                    while (!scanner.hasNextInt()){
-                        System.out.println("Ошибка! Введите число");
-                        System.out.print("Введите номер отдела: ");
-                        scanner.next();
-                    }
-
-                    department = scanner.nextInt();
-                    System.out.print("Введите процент индексации: ");
-
-                    while (!scanner.hasNextDouble()){
-                        System.out.println("Ошибка! Введите число");
-                        System.out.print("Введите процент индексации: ");
-                        scanner.next();
-                    }
-
-                    percent = scanner.nextDouble();
-                    empBook.salaryIncreaseByPercentByDepartment(department, percent);
+                    empBook.salaryIncreaseByPercentByDepartment();
                     continueProgram();
                     break;
 
                 case 19:
+                    // Выйти из программы
+
                     exitProgram();
                     break;
 
                 default:
+                    // Если вбили число, которого нет в меню
+
                     System.out.println("Ошибка! Введите верный параметр!");
                     continueProgram();
                     break;
             }
 
-        } while (!isCorrect);
+        } while (!isExit); // условие продолжения цикла. Может быть изменено только в методе exitProgram (пункт 19 меню)
     }
 
-    public static void continueProgram(){
+    public static void continueProgram() {
+        // Метод, отвечающий за индикацию завершения работы очередного метода, после чего происходит возврат в меню
         Scanner scanner = new Scanner(System.in);
         System.out.print("\nНажмите любую клавишу для продолжения... ");
         scanner.hasNextLine();
     }
 
     public static void exitProgram() {
+        // Метод, позволяющий завершить программу - меняет состояние условия продолжения цикла меню
         Scanner scanner = new Scanner(System.in);
         System.out.print("\nВыйти из программы? [Yes/No] ");
         switch (scanner.nextLine()) {
             case "No":
                 break;
             case "Yes":
-                isCorrect = true;
+                isExit = true;
                 break;
             default:
-                System.out.println("Ошибка");
+                System.out.println("Ошибка!");
+                exitProgram(); // рекурсия
                 break;
         }
-    }
-
-    public static void checkPoint(){
-        System.out.println("Введите параметр:\n");
     }
 }
