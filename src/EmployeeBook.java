@@ -393,11 +393,27 @@ public class EmployeeBook {
     public void findAverageSalary() {
         // Метод для рассчета средней зарплаты
 
-        int averageSalary = 0;
+        double averageSalary = 0;
+        int counter = 0;
 
+        // считаем количество заполненных ячеек
         for (Employee i : employeeList) {
-            averageSalary += i.getSalary() / employeeList.length;
+
+            if (i == null){
+                continue;
+            }
+
+            counter += 1;
         }
+
+        // считаем среднюю з/п
+        for (Employee i : employeeList){
+            if (i == null){
+                continue;
+            }
+            averageSalary += (double)i.getSalary() / counter;
+        }
+
         System.out.println("\nСреднее значение зарплат: " + averageSalary + " р.\n");
     }
 
@@ -570,20 +586,29 @@ public class EmployeeBook {
         }
 
 
-        int averageSalary = 0;
+        double averageSalary = 0;
         int counter = 0;
 
         // Считаем количество человек для корректного подсчета средней з/п
         for (Employee i : employeeList) {
+
+            if (i == null){
+                continue;
+            }
+
             if (i.getDepartment() == department) {
-                counter++;
+                counter += 1;
             }
         }
 
         // Выполняем подсчет средней з/п внутри отдела
         for (Employee i : employeeList) {
+            if (i == null){
+                continue;
+            }
+
             if (i.getDepartment() == department) {
-                averageSalary += i.getSalary() / counter;
+                averageSalary += (double)i.getSalary() / counter;
             }
         }
         System.out.println("Среднее значение зарплат в отделе " + department + " : " + averageSalary + " р.\n");
